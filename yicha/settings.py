@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'yicha.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'teas',
+        'NAME': 'yicha',
     }
 }
 
