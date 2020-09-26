@@ -10,10 +10,13 @@ def product_list(request):
   products = Product.objects.filter(name)
   return render(request, 'home.html', {'categories': categories, 'products': products})
 
-
-##### DEFAULT ##### 
-def index(request):
-  return HttpResponse('<h1>Hello World! /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+##### DEFAULTS #####
 
 def about(request):
  return render(request, 'about.html')
+
+def checkout(request):
+ return render(request, 'checkout.html')
+
+def cart(request):
+ return render(request, 'cart.html')
