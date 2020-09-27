@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Category, Product, OrderItem, Order
 from django.views.generic import DetailView
 from django.conf import settings
+from decimal import Decimal
 
 # Create your views here.
 

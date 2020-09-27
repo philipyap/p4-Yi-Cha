@@ -43,6 +43,14 @@ class OrderItem(models.Model):
     quantity = models.IntegerField()
     amount = models.IntegerField()
 
+    def __str__(self):
+        return '{}'.format(self.id)
+
+    @property
+    def get_total(self):
+        total = self.price * self.quantity
+        return total
+
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -57,4 +65,7 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user
+
+    def get_total_order(self):
+        return sum(item.get_total() for item in self.items.all())
 
