@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
-    phone = models.IntegerField(max_length=10)
+    phone = models.IntegerField()
     usergroup = models.IntegerField()
 
     def __str__(self):
