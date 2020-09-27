@@ -6,9 +6,9 @@ from .models import Category, Product
 
 ##### PRODUCTS #####
 def product_list(request):
-  categories = Category.objects.all()
-  products = Product.objects.filter()
-  return render(request, 'home.html', {'categories': categories, 'products': products})
+    categories = Category.objects.all()
+    products = Product.objects.filter()
+    return render(request, 'home.html', {'categories':categories,'products': products})
 
 def product_details(request, id):
   # Calls get() on a given model manager, but it raises Http404 instead of the model’s DoesNotExist exception
