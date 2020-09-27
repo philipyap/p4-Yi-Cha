@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -27,9 +28,13 @@ class Product(models.Model):
     description = models.CharField(max_length=500)
     image = models.ImageField()
     price = models.IntegerField()
+    slug = models.SlugField()
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('main_app:cart', kwargs= {'slug': self.slug})
 
 class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
