@@ -10,7 +10,7 @@
     
 <h5 class="card-title">{{product.name}}</h5>
 
-<form action="{% url 'cart:cart_add' product.id %}" method="post">
+<!-- <form action="{% url 'cart' product.id %}" method="post"> -->
 
 <form>
     <div class="form-check">
@@ -54,5 +54,5 @@
     <label>quantity</label>         
 </form>
 <a class="btn btn-outline-secondary add-btn" href="/checkout">checkout</a>
-</form>
+<!-- </form> -->
 {% endblock %}

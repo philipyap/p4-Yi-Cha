@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<h1>cart</h1>
+
+    
+<div class="col-md-4">
+    <img src="{{product.image.url}}" class="card-img" alt="...">
+</div>
+    
+<h5 class="card-title">{{product.name}}</h5>
+
+<!-- <form action="{% url 'cart' product.id %}" method="post"> -->
+
+<form>
+    <div class="form-check">
+        <p>sweetness: </p>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">sugar</label>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">no sugar</label>
+    </div>
+</form>
+<form>
+    <div class="form-check">
+        <p>add on:</p>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">cream cheese</label>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">no cream cheese</label>
+    </div>
+</form>
+<form>
+    <div class="form-check">
+        <p>add on:</p>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">boba</label>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">no boba</label>
+    </div>
+</form>
+<form>
+    <div class="form-check">
+        <p>size: </p>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">regular</label>
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        <label class="form-check-label" for="exampleRadios1">large</label>
+    </div>
+</form>
+<form>
+    {% csrf_token %}
+    <input type="text">
+    <label>quantity</label>         
+</form>
+<a class="btn btn-outline-secondary add-btn" href="/checkout">checkout</a>
+<!-- </form> -->
+{% endblock %}
