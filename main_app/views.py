@@ -7,7 +7,7 @@ from .models import Category, Product
 ##### PRODUCTS #####
 def product_list(request):
   categories = Category.objects.all()
-  products = Product.objects.filter(name)
+  products = Product.objects.filter()
   return render(request, 'home.html', {'categories': categories, 'products': products})
 
 def product_details(request, id):
