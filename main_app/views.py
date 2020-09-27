@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from .models import Category, Product
 
 # Create your views here.
 
 ##### PRODUCTS #####
 def product_list(request):
-  categories = Category.objects.all()
-  products = Product.objects.filter(name)
-  return render(request, 'home.html', {'categories': categories, 'products': products})
+    categories = Category.objects.all()
+    products = Product.objects.filter()
+    return render(request, 'home.html', {'categories':categories,'products': products})
 
 def product_details(request, id):
   # Calls get() on a given model manager, but it raises Http404 instead of the model’s DoesNotExist exception
@@ -18,10 +19,6 @@ def product_details(request, id):
 
 
 ##### DEFAULTS #####
-
-
-def cart(request):
-  return render(request, 'cart.html')
 
 def about(request):
  return render(request, 'about.html')
