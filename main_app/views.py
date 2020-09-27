@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Category, Product
+from .models import Category, Product, OrderItem, Order
+from django.views.generic import DetailView
 
 # Create your views here.
 
@@ -10,12 +11,17 @@ def product_list(request):
     products = Product.objects.filter()
     return render(request, 'home.html', {'categories':categories,'products': products})
 
-def product_details(request,id):
-  # Calls get() on a given model manager, but it raises Http404 instead of the model’s DoesNotExist exception
-  product = get_object_or_404(Product, id=id)
-  # goto add_cart_form
-  # cart_product_form = CartAddForm()
-  return render(request, 'cart.html', {'product': product} )
+# def product_details(request, id):
+#   # Calls get() on a given model manager, but it raises Http404 instead of the model’s DoesNotExist exception
+#   product = get_object_or_404(Product, id=id)
+#   # goto add_cart_form
+#   # cart_product_form = CartAddForm()
+#   return render(request, 'cart.html', {'product': product} )
+
+class ItemDetailView(DetailView):
+  model = Product
+  success_url = 'cart.html'
+
 
 
 ##### DEFAULTS #####
