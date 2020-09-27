@@ -10,7 +10,7 @@ def product_list(request):
     products = Product.objects.filter()
     return render(request, 'home.html', {'categories':categories,'products': products})
 
-def product_details(request, id):
+def product_details(request,id):
   # Calls get() on a given model manager, but it raises Http404 instead of the model’s DoesNotExist exception
   product = get_object_or_404(Product, id=id)
   # goto add_cart_form
