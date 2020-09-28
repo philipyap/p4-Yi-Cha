@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
-from .cart import Cart, CartAddProductForm
+from .cart import Cart, CartAddProductForm, OrderCreateForm
 
 # Create your views here.
 
@@ -48,6 +48,26 @@ def cart_remove(request, product_id):
     cart.remove(product)
     return redirect('cart_detail')
 
+##### ORDER #####
+def order_create(request):
+  cart = Cart(request)
+  # if post, then goto form
+  if request.method == 'POST':
+    form = OrderCreateForm(request.POST)
+    #if form valid, create the OrderItem
+    if form.is_valid():
+      order = form.save
+      for item in cart:
+        OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+      # clear cart info once created OrderItem
+      cart.clear()
+      # email to customer once order proceeds
+      # 
+      return render(request, 'order.html', {'order': order})
+    
+  else:
+    form = OrderCreateForm()
+  return render(request, 'order.html', {'cart': cart, 'form': form})
 
 ##### LOGIN VIEW
 def login_view(request):
