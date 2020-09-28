@@ -1,9 +1,13 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<h2>Name: {{product.name}}</h2>
-<img class="thumbnail" src="{{ product.image.url }}">
-<p>Description: {{product.description}}</p>
-<p>Price: ${{product.price}}</p>
+<form>
+    <hr>
+    <img class="thumbnail" style="width:auto;height:auto" src="{{ product.image.url }}">
+    <h5>Name: {{product.name}}</h5>
+    <p>Description: {{product.description}}</p>
+    <p>Price: ${{product.price}}</p>
+</form>
+
     
 {% endblock %}
