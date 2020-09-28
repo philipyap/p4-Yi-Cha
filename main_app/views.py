@@ -67,7 +67,7 @@ def order_create(request):
     
   else:
     form = OrderCreateForm()
-  return render(request, 'order.html', {'cart': cart, 'form': form}')
+  return render(request, 'order.html', {'cart': cart, 'form': form})
 
 ##### LOGIN VIEW
 def login_view(request):
