@@ -35,7 +35,7 @@ Your shopping cart
                                   {% for item in cart %}
                                   {% with product=item.product %}
                                   <tr>
-                                    <td><a href="{{ product.get_absolute_url }}"><img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="" class="img-fluid"></a></td>
+                                    <td><a href="{{ product.get_absolute_url }}"><img class="thumbnail" style="width:200px;height:200px"src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="" class="img-fluid"></a></td>
                                     <td>{{ product.name }}</td>
                                     <td>
                                       <form action="{% url 'cart_add' product.id %}" method="post">{{ item.update_quantity_form.quantity }}
