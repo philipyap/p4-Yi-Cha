@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -104,7 +105,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/cats')
+    return HttpResponseRedirect('/')
 
 ##### Signup View #####
 
@@ -121,6 +122,11 @@ def signup(request):
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
 
+def profile(request, username):
+    user = User.objects.get(username=username)
+    # cats = Cat.objects.filter(user=user)
+    return render(request, 'profile.html', {'username': username})
+
 ##### LOGIN_REQUIRED AND METHOD_DECORATOR ######
 
 # Above the class CatDelete, add this line
@@ -130,6 +136,8 @@ def signup(request):
 # Above the profile function, add this line
 # @login_required
 # def profile(request, username):
+
+
 
 ##### DEFAULTS #####
 
