@@ -24,8 +24,8 @@
                   <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
                     <div class="right-col">
                       {% csrf_token %}
-                      <button type="submit" class="genric-btn success-border circle mb-20 mt-3" style="margin-bottom: 8%; margin-left: 250px; margin-right: 14px;">Continue to Delivery</button>
-                      <button type="submit" class="genric-btn success circle mb-20 mt-5">Continue to Delivery</button>
+                      <a href="{% url 'home' %}"><button type="submit" class="genric-btn success-border circle mb-20 mt-3" style="margin-bottom: 8%; margin-left: 250px; margin-right: 14px;">Continue Shopping</button></a>
+                      <a href="{% url 'checkout' %}"><button type="submit" class="genric-btn success circle mb-20 mt-5">Continue to Delivery</button></a>
                     </div>
                   </div>
                 </form>
