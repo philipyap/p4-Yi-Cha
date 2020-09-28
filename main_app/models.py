@@ -34,7 +34,7 @@ class Product(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('main_app:cart', args=[self.slug])
+        return reverse('cart_detail')
 
 class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

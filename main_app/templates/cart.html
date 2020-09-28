@@ -20,7 +20,7 @@ Your shopping cart
                       </div>
                       <div id="basket" class="col-lg-9">
                         <div class="box mt-0 pb-0 no-horizontal-padding">
-                          <form method="get" action="shop-checkout1.html">
+                         
                             <div class="table-responsive">
                               <table class="table" style="font-family: Permanent Marker;">
                                 <thead>
@@ -38,7 +38,7 @@ Your shopping cart
                                     <td><a href="{{ product.get_absolute_url }}"><img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="" class="img-fluid"></a></td>
                                     <td>{{ product.name }}</td>
                                     <td>
-                                      <form action="{% url 'cart:cart_add' product.id %}" method="post">{{ item.update_quantity_form.quantity }}
+                                      <form action="{% url 'cart_add' product.id %}" method="post">{{ item.update_quantity_form.quantity }}
                                       {{ item.update_quantity_form.update }}
                                       <input type="submit" value="Update">
                                       {% csrf_token %}
@@ -46,7 +46,7 @@ Your shopping cart
                                     </td>
                                     <td>${{ item.price }}</td>
                                     <td>${{ item.total_price }}</td>
-                                    <td><a href="{% url 'cart:cart_remove' product.id %}"><i class="fa fa-trash-o"></i></a></td>
+                                    <td><a href="{% url 'cart_remove' product.id %}"><i class="fa fa-trash-o"></i></a></td>
                                   </tr>
                                   {% endwith %}
                                   {% endfor %}
@@ -54,10 +54,10 @@ Your shopping cart
                               </table>
                             </div>
                             <div class="box-footer d-flex justify-content-between align-items-center">
-                              <div class="left-col"><a href="{% url 'myapp:product_list' %}" class="btn btn-secondary">Continue shopping</a></div>
-                              <div class="right-col"><a href="{% url 'orders:order_create' %}" class="btn btn-secondary"><i class="fa fa-credit-card"></i> Proceed to checkout</a></div>
+                              <div class="left-col"><a href="{% url 'home' %}" class="btn btn-secondary">Continue shopping</a></div>
+                              
                             </div>
-                          </form>
+                         
                         </div>
 
                       </div>
