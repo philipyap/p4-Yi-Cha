@@ -1,3 +1,8 @@
+from django.conf import settings
+from decimal import Decimal
+from .models import Product
+from django import forms
+
 class Cart(object):
   # __init__ setting user's requests to various parts of a web site
     def __init__(self,request):
@@ -50,3 +55,10 @@ class Cart(object):
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.save()
+
+
+PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
+
+class CartAddProductForm(forms.Form):
+    quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES,coerce=int)
+    update = forms.BooleanField(required=False,initial=False,widget=forms.HiddenInput)  
