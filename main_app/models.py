@@ -41,7 +41,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price = models.IntegerField()
     quantity = models.IntegerField()
-    amount = models.IntegerField()
+    # amount = models.IntegerField()
 
     def __str__(self):
         return '{}'.format(self.id)
@@ -53,15 +53,12 @@ class OrderItem(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(OrderItem)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     shipping_address = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
-    ordered_date = models.DateTimeField() 
+    ordered_date = models.DateTimeField()
     paid = models.BooleanField(default=True)
-    amount = models.IntegerField()
 
     def __str__(self):
         return self.user
