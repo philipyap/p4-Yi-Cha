@@ -3,7 +3,9 @@
 {% block content %}
     <h1>{{ username }} profile page</h1>
     {% for o in order %}
-    <p>{{ o.shipping_address }}</p>
+    <p>Order ID: {{ o.id}}</p>
+    <p>On: {{ o.ordered_date}}</p>
+    <a href="{% url 'order_delete' username o.id %}">Delete order history</a>
     {% for i in o.items.all %}
     <p>{{ i.product.name }}</p>
     {% endfor %}
