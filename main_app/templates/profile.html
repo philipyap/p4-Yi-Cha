@@ -2,8 +2,11 @@
 
 {% block content %}
     <h1>{{ username }} profile page</h1>
-    {% for order in orders %}
-    <p>{{ order.shipping}}</p>
-
+    {% for o in order %}
+    <p>{{ o.shipping_address }}</p>
+    {% for i in o.items.all %}
+    <p>{{ i.product.name }}</p>
+    {% endfor %}
+    {% endfor %}
 
 {% endblock %}

@@ -48,7 +48,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.user
+        return 'Order {}'.format(self.id)
 
     def get_total_order(self):
         return sum(item.get_total() for item in self.items.all())
