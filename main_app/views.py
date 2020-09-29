@@ -58,6 +58,10 @@ def cart_remove(request, product_id):
     return redirect('cart_detail')
 
 ##### ORDER #####
+class OrderDelete(DeleteView):
+  model = Order
+  success_url = '/user/<username>'
+
 def order_create(request):
   cart = Cart(request)
   user = User.objects.get(username=request.user.username)
@@ -79,12 +83,6 @@ def order_create(request):
   else:
     form = OrderCreateForm()
   return render(request, 'order.html', {'cart': cart, 'form': form})
-
-class OrderDelete(DeleteView):
-  model = Order
-  success_url = '/user/<username>'
-
-
 
 ##### LOGIN VIEW
 def login_view(request):
