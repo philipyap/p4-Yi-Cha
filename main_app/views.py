@@ -59,20 +59,21 @@ def cart_remove(request, product_id):
 ##### ORDER #####
 def order_create(request):
   cart = Cart(request)
+  user = User.objects.get(username=request.user.username)
   # if post, then goto form
   if request.method == 'POST':
-    form = OrderCreateForm(request.POST)
-    
+    # form = OrderCreateForm(request.POST)
+    order = Order.objects.create(user=user, first_name=request.POST['first_name'], last_name=request.POST['last_name'], shipping_address=request.POST['shipping_address'], email=request.POST['email'])
     #if form valid, create the OrderItem
-    if form.is_valid():
-      order = form.save()
-      for item in cart:
-        OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+    # if form.is_valid():
+    #   order = form.save()
+    for item in cart:
+      OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
       # clear cart info once created OrderItem
-      cart.clear()
+    cart.clear()
       # email to customer once order proceeds
       # 
-      return render(request, 'checkout.html', {'order': order})
+    return render(request, 'checkout.html', {'order': order})
     
   else:
     form = OrderCreateForm()
@@ -123,7 +124,8 @@ def signup(request):
 
 def profile(request, username):
     user = User.objects.get(username=username)
-    order = Order.objects.get(user=user)
+    order = Order.objects.filter(user=user)
+    
     return render(request, 'profile.html', {'username': username, 'order': order})
 
 ##### LOGIN_REQUIRED AND METHOD_DECORATOR ######
