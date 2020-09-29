@@ -35,15 +35,18 @@
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <a href="{% url 'logout' %}"class="btn btn-warning">Logout</a>
-            
-                <a href="">
-                <img  style="
+                <a href="{% url 'cart_detail'  %}">
+                    <img  style="
                     width:25px;
                     display: inline-block;
                     margin-left: 15px"
                     id="cart-icon" src="{% static 'images/cart.png' %}">
                 </a>
-                <p id="cart-total">0</p>
+                {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                    <p id="cart-total">{{total_items}}</p>
+                {% endif %}
+                {% endwith %}
             </div>
         </div>
     {% else %}
@@ -73,7 +76,11 @@
                 margin-left: 15px"
                 id="cart-icon" src="{% static 'images/cart.png' %}">
             </a>
-            <p id="cart-total">0</p>
+            {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+                <p id="cart-total">{{total_items}}</p>
+            {% endif %}
+            {% endwith %}
             </div>
         </div>
     </div>
