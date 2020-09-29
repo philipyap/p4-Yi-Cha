@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from .cart import Cart, CartAddProductForm, OrderCreateForm
+from django.views.generic.edit import DeleteView
 
 # Create your views here.
 
@@ -79,6 +80,11 @@ def order_create(request):
     form = OrderCreateForm()
   return render(request, 'order.html', {'cart': cart, 'form': form})
 
+class OrderDelete(DeleteView):
+  model = Order
+  success_url = '/about'
+
+
 ##### LOGIN VIEW
 def login_view(request):
      # if post, then authenticate (user submitted username and password)
@@ -125,7 +131,6 @@ def signup(request):
 def profile(request, username):
     user = User.objects.get(username=username)
     order = Order.objects.filter(user=user)
-    
     return render(request, 'profile.html', {'username': username, 'order': order})
 
 ##### LOGIN_REQUIRED AND METHOD_DECORATOR ######
