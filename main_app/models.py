@@ -36,20 +36,6 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('cart_detail')
 
-class OrderItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    price = models.IntegerField()
-    quantity = models.IntegerField()
-    # amount = models.IntegerField()
-
-    def __str__(self):
-        return '{}'.format(self.id)
-
-    @property
-    def get_total(self):
-        total = self.price * self.quantity
-        return total
 
 
 class Order(models.Model):
@@ -66,3 +52,19 @@ class Order(models.Model):
     def get_total_order(self):
         return sum(item.get_total() for item in self.items.all())
 
+
+class OrderItem(models.Model):
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
+    price = models.IntegerField()
+    quantity = models.IntegerField()
+    # amount = models.IntegerField()
+
+    def __str__(self):
+        return '{}'.format(self.id)
+
+    @property
+    def get_total(self):
+        total = self.price * self.quantity
+        return total
