@@ -36,9 +36,26 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('cart_detail')
 
+
+
+class Order(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    shipping_address = models.CharField(max_length=200)
+    email = models.CharField(max_length=100)
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    paid = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.user
+
+    def get_total_order(self):
+        return sum(item.get_total() for item in self.items.all())
+
+
 class OrderItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
     price = models.IntegerField()
     quantity = models.IntegerField()
     # amount = models.IntegerField()
@@ -50,19 +67,3 @@ class OrderItem(models.Model):
     def get_total(self):
         total = self.price * self.quantity
         return total
-
-
-class Order(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    shipping_address = models.CharField(max_length=200)
-    email = models.CharField(max_length=100)
-    ordered_date = models.DateTimeField()
-    paid = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.user
-
-    def get_total_order(self):
-        return sum(item.get_total() for item in self.items.all())
-

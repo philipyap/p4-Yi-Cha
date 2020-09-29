@@ -56,7 +56,7 @@ def order_create(request):
     form = OrderCreateForm(request.POST)
     #if form valid, create the OrderItem
     if form.is_valid():
-      order = form.save
+      order = form.save()
       for item in cart:
         OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
       # clear cart info once created OrderItem
