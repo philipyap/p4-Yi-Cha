@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from .cart import Cart, CartAddProductForm, OrderCreateForm
+from django.views.generic.edit import DeleteView
 
 # Create your views here.
 
@@ -59,24 +60,31 @@ def cart_remove(request, product_id):
 ##### ORDER #####
 def order_create(request):
   cart = Cart(request)
+  user = User.objects.get(username=request.user.username)
   # if post, then goto form
   if request.method == 'POST':
-    form = OrderCreateForm(request.POST)
-    
+    # form = OrderCreateForm(request.POST)
+    order = Order.objects.create(user=user, first_name=request.POST['first_name'], last_name=request.POST['last_name'], shipping_address=request.POST['shipping_address'], email=request.POST['email'])
     #if form valid, create the OrderItem
-    if form.is_valid():
-      order = form.save()
-      for item in cart:
-        OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
+    # if form.is_valid():
+    #   order = form.save()
+    for item in cart:
+      OrderItem.objects.create(order=order, product=item['product'], price=item['price'], quantity=item['quantity'])
       # clear cart info once created OrderItem
-      cart.clear()
+    cart.clear()
       # email to customer once order proceeds
       # 
-      return render(request, 'checkout.html', {'order': order})
+    return render(request, 'checkout.html', {'order': order})
     
   else:
     form = OrderCreateForm()
   return render(request, 'order.html', {'cart': cart, 'form': form})
+
+class OrderDelete(DeleteView):
+  model = Order
+  success_url = '/user/<username>'
+
+
 
 ##### LOGIN VIEW
 def login_view(request):
@@ -123,8 +131,12 @@ def signup(request):
 
 def profile(request, username):
     user = User.objects.get(username=username)
-    order = Order.objects.get(user=user)
-    return render(request, 'profile.html', {'username': username, 'order': order})
+    order = Order.objects.filter(user=user)
+    cart = Cart(request)
+    for item in cart:
+      item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+    
+    return render(request, 'profile.html', {'username': username, 'order': order, 'cart': cart})
 
 ##### LOGIN_REQUIRED AND METHOD_DECORATOR ######
 
@@ -141,7 +153,10 @@ def profile(request, username):
 ##### DEFAULTS #####
 
 def about(request):
-    return render(request, 'about.html')
+    cart = Cart(request)
+    for item in cart:
+      item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+    return render(request, 'about.html', {'cart':cart})
 
 def checkout(request):
     return render(request, 'checkout.html')

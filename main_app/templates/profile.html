@@ -1,9 +1,32 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
-    <h1>{{ username }} profile page</h1>
-    {% for order in orders %}
-        <p>{{ order.user_id}}</p>
-    {% endfor %}
-
+<h1>{{ username }}'s Profile Page</h1>
+<br>
+<h5>Order History</h5>
+<br>
+<div>
+    {% for o in order %}
+    
+        <p>{{ o.ordered_date}}</p>
+        <p>{{ o.id }}</p>
+        <td><a href="{% url 'order_delete' o.id %}"><i class="fa fa-trash-o"></i></a></td>
+    
+    
+    {% for i in o.items.all %}
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{i.product.image.url}}" class="card-img" alt="product-image">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.product.name }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
 {% endblock %}
