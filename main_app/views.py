@@ -16,21 +16,29 @@ def product_list(request):
     categories = Category.objects.all()
     products = Product.objects.filter()
     cart_product_form = CartAddProductForm()
-    return render(request, 'home.html', {'categories':categories,'products': products, 'cart_product_form': cart_product_form})
+
+    #add_cart length
+    cart = Cart(request)
+    for item in cart:
+      item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+    return render(request, 'home.html', {'categories':categories,'products': products, 'cart_product_form': cart_product_form, 'cart': cart})
 
 def product_details(request, product_id):
   # Calls get() on a given model manager, but it raises Http404 instead of the model’s DoesNotExist exception
     product = Product.objects.get(id=product_id)
   # goto add_cart_form
-  # cart_product_form = CartAddForm()
-    return render(request, 'product.html', {'product': product})
+    cart = Cart(request)
+    for item in cart:
+      item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+  
+    return render(request, 'product.html', {'product': product, 'cart': cart})
 
 ##### CART #####
 def cart_detail(request):
   cart = Cart(request)
   for item in cart:
       item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
-  return render(request, ['cart.html', 'home.html'],{'cart': cart})
+  return render(request, 'cart.html', {'cart': cart})
 
 def cart_add(request, product_id):
   cart = Cart(request)
@@ -54,6 +62,7 @@ def order_create(request):
   # if post, then goto form
   if request.method == 'POST':
     form = OrderCreateForm(request.POST)
+    
     #if form valid, create the OrderItem
     if form.is_valid():
       order = form.save()
@@ -63,7 +72,7 @@ def order_create(request):
       cart.clear()
       # email to customer once order proceeds
       # 
-      return render(request, 'order.html', {'order': order})
+      return render(request, 'checkout.html', {'order': order})
     
   else:
     form = OrderCreateForm()
@@ -114,8 +123,8 @@ def signup(request):
 
 def profile(request, username):
     user = User.objects.get(username=username)
-    # cats = Cat.objects.filter(user=user)
-    return render(request, 'profile.html', {'username': username})
+    order = Order.objects.get(user=user)
+    return render(request, 'profile.html', {'username': username, 'order': order})
 
 ##### LOGIN_REQUIRED AND METHOD_DECORATOR ######
 
