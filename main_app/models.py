@@ -39,11 +39,12 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     shipping_address = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
-    ordered_date = models.DateTimeField()
+    ordered_date = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=True)
 
     def __str__(self):
@@ -54,7 +55,6 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
     price = models.IntegerField()
