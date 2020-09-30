@@ -83,7 +83,9 @@ def order_create(request):
 
 class OrderDelete(DeleteView):
     model = Order
-    success_url = '/'
+
+    def get_success_url(self):
+        return '/user/'+self.request.user.username+'/'
 
 ##### LOGIN VIEW
 def login_view(request):
