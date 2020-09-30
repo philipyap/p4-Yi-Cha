@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
+{% load method_override %}
 {% block title %}
 Your shopping cart
 {% endblock %}
@@ -41,6 +42,7 @@ Your shopping cart
                                       {{ item.update_quantity_form.update }}
                                       <input type="submit" value="Update">
                                       {% csrf_token %}
+                                       {% method_override 'PUT' %}
                                       </form>
                                     </td>
                                     <td>${{ item.price }}</td>

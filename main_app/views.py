@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from .cart import Cart, CartAddProductForm, OrderCreateForm
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 
 # Create your views here.
 
@@ -44,11 +44,22 @@ def cart_detail(request):
 def cart_add(request, product_id):
   cart = Cart(request)
   product = get_object_or_404(Product, id=product_id)
+  # POST update quantity in cart and 
+  # set the form is valid then save the data by using form.cleaned_data
   form = CartAddProductForm(request.POST)
   if form.is_valid():
       cd = form.cleaned_data
       cart.add(product=product,quantity=cd['quantity'],update_quantity=cd['update'])
   return redirect('cart_detail')
+
+# class QtyUpdate(UpdateView):
+#   model: Product
+
+#   def form_valid(self, form): # this will allow us to catch the pk to redirect to the show page
+#         self.object = form.save(commit=False) # Don't immediately post to the db until we say so
+#         self.object.save()
+#         return HttpResponseRedirect('/cart_detail')
+  
   
 
 def cart_remove(request, product_id):
