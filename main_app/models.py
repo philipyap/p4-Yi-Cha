@@ -13,7 +13,8 @@ class UserProfile(models.Model):
     usergroup = models.IntegerField()
 
     def __str__(self):
-        return self.user
+        return '{}'.format(self.id)
+    
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
