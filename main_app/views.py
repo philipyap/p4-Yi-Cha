@@ -16,18 +16,18 @@ from django.views.generic.edit import DeleteView
 def product_list(request):
     categories = Category.objects.all()
     products = Product.objects.filter()
+    # parse-in cart form for quantity/update
     cart_product_form = CartAddProductForm()
-
-    #add_cart length
+    # grab class Cart info 
     cart = Cart(request)
     for item in cart:
       item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
     return render(request, 'home.html', {'categories':categories,'products': products, 'cart_product_form': cart_product_form, 'cart': cart})
 
 def product_details(request, product_id):
-  # Calls get() on a given model manager, but it raises Http404 instead of the model’s DoesNotExist exception
+  # Calls get() on a given model manager
     product = Product.objects.get(id=product_id)
-  # goto add_cart_form
+  # for icon cart length
     cart = Cart(request)
     for item in cart:
       item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
@@ -133,32 +133,20 @@ def signup(request):
 def profile(request, username):
     user = User.objects.get(username=username)
     order = Order.objects.filter(user=user)
+    # for icon cart length
     cart = Cart(request)
     for item in cart:
       item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
     
     return render(request, 'profile.html', {'username': username, 'order': order, 'cart': cart})
 
-##### LOGIN_REQUIRED AND METHOD_DECORATOR ######
-
-# Above the class CatDelete, add this line
-# @method_decorator(login_required, name='dispatch')
-# class CatDelete(DeleteView):
-
-# Above the profile function, add this line
-# @login_required
-# def profile(request, username):
-
-
 
 ##### DEFAULTS #####
 
 def about(request):
+  # for icon cart length 
     cart = Cart(request)
     for item in cart:
       item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
     return render(request, 'about.html', {'cart':cart})
-
-def checkout(request):
-    return render(request, 'checkout.html')
 
