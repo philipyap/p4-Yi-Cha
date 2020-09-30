@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Category, Product, OrderItem, Order
+from .models import Category, Product, OrderItem, Order, UserProfile
 from django.views.generic import DetailView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from .cart import Cart, CartAddProductForm, OrderCreateForm
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
 
 # Create your views here.
 
@@ -80,6 +80,31 @@ def order_create(request):
   else:
     form = OrderCreateForm()
   return render(request, 'order.html', {'cart': cart, 'form': form})
+
+@method_decorator(login_required, name='dispatch')
+class ProfileCreate(CreateView):
+    model = UserProfile
+    fields = '__all__'
+    
+    def get_success_url(self):
+        return '/user/'+self.request.user.username+'/'
+
+    def form_valid(self,form):
+        self.object = form.save(commit=False)
+        print('!!!! SELF.OBJECT:', self.object)
+        self.object.user = self.request.user
+        self.oblect.save()
+        return '/user/'+self.request.user.username+'/'
+
+
+class ProfileUpdate(UpdateView):
+    model = UserProfile
+    fields = ['first_name', 'last_name', 'phone', 'email']
+
+    def form_valid(self, form): # this will allow us to catch the pk to redirect to the show page
+        self.object = form.save(commit=False) # don't post to the db until we say so
+        self.object.save()
+        return '/user/'+self.request.user.username+'/'
 
 class OrderDelete(DeleteView):
     model = Order
