@@ -9,6 +9,9 @@
     {% for o in order %}
     <p>Order ID: {{ o.id}}</p>
     <p>On: {{ o.ordered_date}}</p>
+    {% if o.paid %}
+        <p>paid on: {{o.ordered_date}}</p>
+    {% endif %}
     <a href="{% url 'order_delete' username o.id %}">Delete order history</a>
     {% for i in o.items.all %}
     <div class="card mb-3" style="max-width: 540px;">
