@@ -58,6 +58,7 @@ def cart_remove(request, product_id):
     return redirect('cart_detail')
 
 ##### ORDER #####
+
 def order_create(request):
   cart = Cart(request)
   user = User.objects.get(username=request.user.username)
@@ -81,9 +82,8 @@ def order_create(request):
   return render(request, 'order.html', {'cart': cart, 'form': form})
 
 class OrderDelete(DeleteView):
-  model = Order
-  success_url = '/about'
-
+    model = Order
+    success_url = '/'
 
 ##### LOGIN VIEW
 def login_view(request):
@@ -131,7 +131,11 @@ def signup(request):
 def profile(request, username):
     user = User.objects.get(username=username)
     order = Order.objects.filter(user=user)
-    return render(request, 'profile.html', {'username': username, 'order': order})
+    cart = Cart(request)
+    for item in cart:
+      item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+    
+    return render(request, 'profile.html', {'username': username, 'order': order, 'cart': cart})
 
 ##### LOGIN_REQUIRED AND METHOD_DECORATOR ######
 
@@ -148,7 +152,10 @@ def profile(request, username):
 ##### DEFAULTS #####
 
 def about(request):
-    return render(request, 'about.html')
+    cart = Cart(request)
+    for item in cart:
+      item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+    return render(request, 'about.html', {'cart':cart})
 
 def checkout(request):
     return render(request, 'checkout.html')
