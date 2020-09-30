@@ -56,13 +56,13 @@ class Cart(object):
         del self.session[settings.CART_SESSION_ID]
         self.save()
 
-
+# set max length order quantity below 20
 PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
-
+# create add_product for in product list, only grab quantity and update
 class CartAddProductForm(forms.Form):
     quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES,coerce=int)
     update = forms.BooleanField(required=False,initial=False,widget=forms.HiddenInput)
-
+# create order_form after confirmation from cart
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
