@@ -3,23 +3,22 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="row">
-    {% for product in products %}
-    <div class="card" style="width: 18rem;">
-      <img src="{{ product.image.url }}" class="card-img-top" alt="picture">
-      <form action="{% url 'cart_add' product.id %}" method="post">
-        <div class="card-body">
-          <h5 class="card-title" href="{% url 'product_details' product.id %}">{{ product.name }}</h5>
-          {{ cart_product_form|crispy }}
-          {% csrf_token %}
-          <button class="btn btn-primary" type="submit">Add</button>
-          <p style="display:inline-block;float:right">{{ product.price }}</p>
-        </div>
-      </div>
-      </form>
+  {% for product in products %}
+  <div class="card;thumbnail" style="width: 18rem;">
+    <img src="{{ product.image.url }}" class="card-img-top" alt="picture">
+    <form action="{% url 'cart_add' product.id %}" method="post">
+      <div class="card-body">
+        <h5 class="card-title" href="{% url 'product_details' product.id %}">{{ product.name }}</h5>
+        {{ cart_product_form|crispy }}
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">Add</button>
+        <p style="display:inline-block;float:right">{{ product.price }}</p>
       </div>
     </div>
-    {% endfor %}
+    </form>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}
-
-  
+      
