@@ -8,15 +8,15 @@ Your shopping cart
                 <div id="content">
                   <div class="container" style="margin-top: 4%; margin-bottom: 10%;">
                     <div class="row bar">
-                      <div class="col-lg-12" style="color: black; margin-bottom: 4%;">
-                        {% with total_items=cart|length %}
-                        {% if cart|length > 0 %}
-                        <h2>You have {{ total_items }} item{{ total_items|pluralize }} in your cart</h2>
-                        {% else %}
-                        Your cart is empty.
-                        {% endif %}
-                        {% endwith %}
-                      </div>
+                        <div class="col-lg-12" style="color: black; margin-bottom: 4%;">
+                            {% with total_items=cart|length %}
+                                {% if cart|length > 0 %}
+                                    <h2>You have {{ total_items }} item{{ total_items|pluralize }} in your cart</h2>
+                                {% else %}
+                                    Your cart is empty.
+                                {% endif %}
+                            {% endwith %}
+                        </div>
                       <div id="basket" class="col-lg-9">
                         <div class="box mt-0 pb-0 no-horizontal-padding">
                          
@@ -60,6 +60,9 @@ Your shopping cart
                         </div>
 
                       </div>
+
+
+
                       <div class="col-lg-3">
                         <div id="order-summary" class="box mt-0 mb-4 p-0">
                           <div class="box-header mt-0">
