@@ -44,11 +44,22 @@ def cart_detail(request):
 def cart_add(request, product_id):
   cart = Cart(request)
   product = get_object_or_404(Product, id=product_id)
+  # POST update quantity in cart and 
+  # set the form is valid then save the data by using form.cleaned_data
   form = CartAddProductForm(request.POST)
   if form.is_valid():
       cd = form.cleaned_data
       cart.add(product=product,quantity=cd['quantity'],update_quantity=cd['update'])
   return redirect('cart_detail')
+
+# class QtyUpdate(UpdateView):
+#   model: Product
+
+#   def form_valid(self, form): # this will allow us to catch the pk to redirect to the show page
+#         self.object = form.save(commit=False) # Don't immediately post to the db until we say so
+#         self.object.save()
+#         return HttpResponseRedirect('/cart_detail')
+  
   
 
 def cart_remove(request, product_id):
@@ -94,17 +105,20 @@ class ProfileCreate(CreateView):
         print('!!!! SELF.OBJECT:', self.object)
         self.object.user = self.request.user
         self.oblect.save()
-        return '/user/'+self.request.user.username+'/'
+        return '/user/'+self.request.user.username+'/'+str(self.object.pk)
 
 
 class ProfileUpdate(UpdateView):
+    
     model = UserProfile
     fields = ['first_name', 'last_name', 'phone', 'email']
 
-    def form_valid(self, form): # this will allow us to catch the pk to redirect to the show page
+    def form_valid(self, form):
+        print(self.request)
+       # this will allow us to catch the pk to redirect to the show page
         self.object = form.save(commit=False) # don't post to the db until we say so
         self.object.save()
-        return '/user/'+self.request.user.username+'/'
+        return render('/user/'+self.request.user.username+'/')
 
 class OrderDelete(DeleteView):
     model = Order
@@ -157,13 +171,16 @@ def signup(request):
 
 def profile(request, username):
     user = User.objects.get(username=username)
+    # print(user.id)
     order = Order.objects.filter(user=user)
+    user_profile = UserProfile.objects.filter(user=user)
+    print(user_profile)
     # for icon cart length
     cart = Cart(request)
     for item in cart:
       item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
     
-    return render(request, 'profile.html', {'username': username, 'order': order, 'cart': cart})
+    return render(request, 'profile.html', {'user': user, 'username': username, 'order': order, 'cart': cart, 'user_profile': user_profile})
 
 
 ##### DEFAULTS #####
