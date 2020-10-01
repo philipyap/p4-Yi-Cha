@@ -1,13 +1,16 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
-<h1>Delete Order</h1>
-
-<p>Are you sure want to delete this order: {{ order }} ?</p>
-
-<form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes,delete!">
-</form>
+<div class="card">
+    <h5 class="card-header">Delete Order</h5>
+    <div class="card-body">
+      <p class="card-text">Are you sure want to delete this order: {{ order }} ?</p>
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input class="btn btn-outline-success btn-sm" type="submit" value="Yes, delete!">
+        </form>    
+    </div>
+</div>
 
 {% endblock %}
+
