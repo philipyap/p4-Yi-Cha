@@ -15,20 +15,19 @@
                       <div class="form-group">
                         <h2>Provide Your Information:</h2>
                         {{ form|crispy }}
-                        <a href="{% url 'home' %}"><button type="submit" class="btn btn-outline-success btn-sm" style="margin-bottom: 8%">Continue Shopping</button></a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
-                <div class="right-col">
-                  {% csrf_token %}
-                </div>  
-              </div>
+                <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
+                  <div class="right-col">
+                    {% csrf_token %}
+                  </div>  
+                </div>
               </div>
               <div class="btn btn-outline btn-sm" id="paypal-button-container">
                 <script src="https://www.paypal.com/sdk/js?client-id=AWP4AChFP3h8_V0nZ4k9fcv9FDlKgK59j01m5qXVFz_rym-zIuBuiPpaBZ5M2QACxvbW9oG5G3K2qOjq&currency=USD&disable-funding=credit"></script>
-                  <script>
+                <script>
                     let total = '{{ cart.get_total_price }}'
                       // Render the PayPal button into #paypal-button-container
                       paypal.Buttons({
@@ -59,7 +58,8 @@
                       }).render('#paypal-button-container');
                   </script>
                 </div>
-                  </form>
+              </form>
+              <a href="{% url 'home' %}"><button type="submit" class="btn btn-outline-success btn-sm" style="margin-bottom: 8%">Continue Shopping</button></a>
               </div>
               <div class="col-lg-3">
                 <div id="order-summary" class="box mb-4 p-0">
