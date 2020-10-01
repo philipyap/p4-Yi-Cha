@@ -96,7 +96,7 @@ class ProfileCreate(CreateView):
         self.oblect.save()
         return '/user/'+self.request.user.username+'/'
 
-
+# @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(UpdateView):
     model = UserProfile
     fields = ['first_name', 'last_name', 'phone', 'email']
@@ -105,12 +105,14 @@ class ProfileUpdate(UpdateView):
         self.object = form.save(commit=False) # don't post to the db until we say so
         self.object.save()
         return '/user/'+self.request.user.username+'/'
+        # return HttpResponseRedirect('/user/' + str(request.user.username))
 
 class OrderDelete(DeleteView):
     model = Order
 
     def get_success_url(self):
         return '/user/'+self.request.user.username+'/'
+
 
 ##### LOGIN VIEW
 def login_view(request):

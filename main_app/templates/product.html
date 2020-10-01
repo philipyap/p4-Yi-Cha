@@ -1,22 +1,23 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-        <div class="col-md-4">
-            <img class="card-img" src="{{ product.image.url }}">
-        </div>
-        <div class="col-md-8">
-        <div class="card-body">
-            <h5 class="card-title">Name: {{product.name}}</h5>
-            <p class="card-text">Description: {{product.description}}</p>
-            <p class="card-text">Price: ${{product.price}}</p>
-            
-        </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box-element">
+            <div class="box-element">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Description</strong></div>
+					<div style="flex:1"><strong>Price</strong></div>
+				</div>
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="{{ product.image.url }}"></div>
+                <div style="flex:2"><p>{{product.name}}</p></div>
+                <div style="flex:1"><p>{{product.description}}</p></div>
+                <div style="flex:1"><p>$ {{product.price}}</p></div>  
+            </div>
         </div>
     </div>
 </div>
-
-    
 {% endblock %}
