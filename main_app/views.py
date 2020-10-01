@@ -95,7 +95,7 @@ def order_create(request):
 @method_decorator(login_required, name='dispatch')
 class ProfileCreate(CreateView):
     model = UserProfile
-    fields = ['first_name', 'last_name', 'phone', 'email']
+    fields = ['first_name', 'last_name', 'phone', 'email','address']
     
     def get_success_url(self):
         return '/user/'+self.request.user.username+'/'
@@ -111,7 +111,7 @@ class ProfileCreate(CreateView):
 class ProfileUpdate(UpdateView):
     
     model = UserProfile
-    fields = ['first_name', 'last_name', 'phone', 'email']
+    fields = ['first_name', 'last_name', 'phone', 'email', 'address']
 
     def get_object(self, queryset=None):             
       return UserProfile.objects.get(user=self.request.user)
