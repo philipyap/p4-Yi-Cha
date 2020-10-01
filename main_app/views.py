@@ -95,17 +95,17 @@ def order_create(request):
 @method_decorator(login_required, name='dispatch')
 class ProfileCreate(CreateView):
     model = UserProfile
-    fields = '__all__'
+    fields = ['first_name', 'last_name', 'phone', 'email']
     
     def get_success_url(self):
         return '/user/'+self.request.user.username+'/'
 
     def form_valid(self,form):
         self.object = form.save(commit=False)
-        print('!!!! SELF.OBJECT:', self.object)
         self.object.user = self.request.user
-        self.oblect.save()
-        return '/user/'+self.request.user.username+'/'+str(self.object.pk)
+        self.object.usergroup = 0
+        self.object.save()
+        return redirect('profile', self.request.user.username)
 
 # @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(UpdateView):
@@ -113,12 +113,15 @@ class ProfileUpdate(UpdateView):
     model = UserProfile
     fields = ['first_name', 'last_name', 'phone', 'email']
 
+    def get_object(self, queryset=None):             
+      return UserProfile.objects.get(user=self.request.user)
+
     def form_valid(self, form):
         print(self.request)
        # this will allow us to catch the pk to redirect to the show page
         self.object = form.save(commit=False) # don't post to the db until we say so
         self.object.save()
-        return render('/user/'+self.request.user.username+'/')
+        return redirect('profile', self.request.user.username)
 
 class OrderDelete(DeleteView):
     model = Order
