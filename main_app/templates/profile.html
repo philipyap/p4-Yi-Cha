@@ -2,8 +2,19 @@
 {% load static %}
 {% block content %}
 <h1>{{ username }}'s Profile Page</h1>
+
+</br>
+{% if user_profile|length > 0 %}
 <a href="{% url 'profile_update' username user.id %}">Update Details</a>
-{{ user_profile.phone }}
+firstname:{{ user_profile.0.first_name }}
+
+{% else %}
+
+<a href="{% url 'profile_create' username user.id %}">Create Info</a>
+</br>
+
+{% endif %}
+
 <br>
 <h5>Order History</h5>
 <br>
