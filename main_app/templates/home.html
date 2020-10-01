@@ -26,14 +26,19 @@
     </div>
     {% endfor %}
     {% else %}
-    
-      <p>* please Login or Signup to place your order  </p>
-    
+    <div id="home-alert">
+      <br>
+      <br>
+      <div>
+        <blockquote>
+         <p> * please Login or Signup to place your order  </p>
+      </blockquote>
+      </div>
+      
+     
+    </div>
     {% for product in products %}
     <div class="col-lg-3">
-      <br>
-      <br>
-      
       <img class="thumbnail" src="{{ product.image.url }}">
       <div class="box-element product">
         <a href="{% url 'product_details' product.id %} "><p><small>{{ product.name }}</small></p></a>
