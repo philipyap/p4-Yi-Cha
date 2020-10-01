@@ -16,6 +16,7 @@ whitenoise = "*"
 python-decouple = "*"
 django-crispy_forms = "*"
 django-phone_field = "*"
+Pillow = "*"
 
 [requires]
 python_version = "3.8"
