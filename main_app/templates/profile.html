@@ -3,43 +3,68 @@
 {% block content %}
 <h1>{{ username }}'s Profile Page</h1>
 
+
+<dl class="row">
+    <dt class="col-sm-3">First Name: </dt>
+    <dd class="col-sm-9">{{ user_profile.0.first_name }}</dd>
+    
+    <dt class="col-sm-3">Last Name:</dt>
+    <dd class="col-sm-9">{{ user_profile.0.last_name }}</dd>
+    
+    <dt class="col-sm-3">Email:</dt>
+    <dd class="col-sm-9">{{ user_profile.0.email }}</dd>
+    
+    <dt class="col-sm-3 text-truncate">Mailing Address:</dt>
+    <dd class="col-sm-9">{{ user_profile.0.address }}</dd>
+    
+    <dt class="col-sm-3">Contact Number:</dt>
+    <dd class="col-sm-9"> {{ user_profile.0.phone}}
+        <dl class="row">
+            <dt class="col-sm-4"></dt>
+            <dd class="col-sm-8"></dd>
+        </dl>
+    </dd>
 </br>
-{% if user_profile|length > 0 %}
-<a href="{% url 'profile_update' username user.id %}">Update Details</a>
-firstname:{{ user_profile.0.first_name }}
-
-{% else %}
-
-<a href="{% url 'profile_create' username user.id %}">Create Info</a>
-</br>
-
-{% endif %}
-
-<br>
-<h5>Order History</h5>
-<br>
-<div>
-    {% for o in order %}
-    <p>Order ID: {{ o.id}}</p>
-    <p>On: {{ o.ordered_date}}</p>
-    {% if o.paid %}
-        <p>paid on: {{o.ordered_date}}</p>
+<div class="box-footer d-flex justify-content-between align-items-center">
+    {% if user_profile|length > 0 %}
+        <div class="left-col"><a href="{% url 'profile_update' username user.id %}" class="btn btn-secondary">Update Profile</a></div>
+  
+    {% else %}
+        <div class="left-col"><a href="{% url 'profile_create' username user.id %}" class="btn btn-danger">Create Profile</a></div>
     {% endif %}
-    <a href="{% url 'order_delete' username o.id %}">Delete order history</a>
-    {% for i in o.items.all %}
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="{{i.product.image.url}}" class="card-img" alt="product-image">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{ i.product.name }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            {% endfor %}
+</div>
+</dl>
+</hr>
+<h2>Order History</h2>
+
+
+<div class="row-cols-md-3">
+    <div class="col s12">  
+      <div class="card h-100">
+        {% for o in order %}
+        <div class="card-body">
+        <blockquote>
+          <h5 class="card-title">Order ID: {{ o.id }}</h5>
+          {% if o.paid %}
+            <p>paid on: {{o.ordered_date}}</p>
+          {% endif %}
+            <p>shipping to: {{ o.shipping_address }}</p>
+        </blockquote>
+          {% for i in o.items.all %}
+          <li>{{ i.product.name }} , quantity: {{ i.quantity}}</li>
+          {% endfor %}
         </div>
+        <a class="btn btn-primary" href="{% url 'order_delete' username o.id %}">Delete history</a>
+        {% endfor %}
+    
+    </div>
+
+    </div>
+</div>
+
+</br>
+</br>
+
+
+
 {% endblock %}

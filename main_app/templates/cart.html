@@ -56,7 +56,9 @@ Your shopping cart
                             </div>
                             <div class="box-footer d-flex justify-content-between align-items-center">
                                 {% if cart.get_total_price == 0 %}
+                                <p> Hey! Let's try a drink! Your cart is empty!</p>
                                     <div class="left-col"><a href="{% url 'home' %}" class="btn btn-secondary">Continue shopping</a></div>
+                              
                                 {% else %}
                                     <div class="left-col"><a href="{% url 'home' %}" class="btn btn-secondary">Continue shopping</a></div>
                                     <div class="right-col"><a href="{% url 'order_create'  %}" class="btn btn-secondary"><i class="fa fa-credit-card"></i> Proceed to checkout</a></div>
