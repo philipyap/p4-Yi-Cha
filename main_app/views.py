@@ -171,9 +171,10 @@ def signup(request):
 
 def profile(request, username):
     user = User.objects.get(username=username)
-    print(user.id)
+    # print(user.id)
     order = Order.objects.filter(user=user)
     user_profile = UserProfile.objects.filter(user=user)
+    print(user_profile)
     # for icon cart length
     cart = Cart(request)
     for item in cart:
