@@ -15,6 +15,7 @@ psycopg2 = "*"
 whitenoise = "*"
 python-decouple = "*"
 django-crispy_forms = "*"
+django-phone_field = "*"
 
 [requires]
 python_version = "3.8"
