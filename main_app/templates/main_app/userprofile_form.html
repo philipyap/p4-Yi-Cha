@@ -2,13 +2,18 @@
 {% load static %}
 {% block content %}
 
-<p>Edit profile: </p>
-<form action="" method="post">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit">
-</form>
+<div class="profile-box">
+    <h5>Edit Profile: </h5>
+    
+    <form id="text-box" action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <br>
+        <input id="profile-box"class="btn btn-outline-success btn-lg" type="submit" value="Submit">
+    </form>
+</div>
+
 
 {% endblock %}
