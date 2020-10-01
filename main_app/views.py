@@ -13,6 +13,7 @@ from django.views.generic.edit import DeleteView, UpdateView, CreateView
 # Create your views here.
 
 ##### PRODUCTS #####
+
 def product_list(request):
     categories = Category.objects.all()
     products = Product.objects.filter()
@@ -41,6 +42,7 @@ def cart_detail(request):
       item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
   return render(request, 'cart.html', {'cart': cart})
 
+# @method_decorator(login_required, name='dispatch')
 def cart_add(request, product_id):
   cart = Cart(request)
   product = get_object_or_404(Product, id=product_id)

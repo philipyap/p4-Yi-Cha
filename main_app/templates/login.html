@@ -2,12 +2,13 @@
 {% load static %}
 {% block content %}
 
-<h1>Login</h1>
-<form method="POST" action=".">
-  {% csrf_token %}
-  {{ form.as_p}}
-  <input type="submit" value="Submit" />
-</form>
-
+<div class="login-box">
+    <h1>Login</h1>
+    <form method="POST" action="." class="textbox">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input class="btn btn-outline-success btn-sm" type="submit" value="Submit" />
+    </form>
+</div>
 {% endblock %}
 
