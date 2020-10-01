@@ -33,7 +33,7 @@ else:
 # Define general behavior variables for DJANGO_HOST and all others
 if DJANGO_HOST == "production":
     DEBUG = False
-    STATIC_URL = 'https://yourappname.herokuapp.com'
+    STATIC_URL = 'https://yicha.herokuapp.com/'
 else:
     DEBUG = True
     STATIC_URL = '/static/'
@@ -49,7 +49,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY'] or config('SECRET_KEY')
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'yicha.herokuapp.com'
+]
 
 
 # Application definition
