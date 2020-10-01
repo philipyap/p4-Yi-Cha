@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from phone_field import PhoneField
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -9,7 +10,7 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
-    phone = models.IntegerField()
+    phone = PhoneField(blank=True, help_text='Contact phone number')
     usergroup = models.IntegerField()
 
     def __str__(self):

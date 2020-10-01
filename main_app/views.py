@@ -117,7 +117,6 @@ class ProfileUpdate(UpdateView):
         print(self.request)
        # this will allow us to catch the pk to redirect to the show page
         self.object = form.save(commit=False) # don't post to the db until we say so
-
         self.object.save()
         return render('/user/'+self.request.user.username+'/')
 
