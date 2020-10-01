@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         {% if user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'home' %}">Yi-Cha</a>
+        <a class="navbar-brand" href="{% url 'home' %}">YI-CHA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,7 +31,7 @@
             </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
-                <a href="{% url 'logout' %}"class="btn btn-warning">Logout</a>
+                <a href="{% url 'logout' %}"class="btn btn-info">Logout</a>
                 <a href="{% url 'cart_detail'  %}">
                     <img id="cart-icon" src="{% static 'images/cart.png' %}">
                 </a>
@@ -43,7 +43,7 @@
             </div>
         </div>
     {% else %}
-    <a class="navbar-brand" href="{% url 'home' %}">Yi-Cha</a>
+    <a class="navbar-brand" href="{% url 'home' %}">YI-CHA</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -59,17 +59,12 @@
 
         </ul>
         <div class="form-inline my-2 my-lg-0">
-            <a href="{% url 'login' %}"class="btn btn-warning">Login</a>
+            <a href="{% url 'login' %}"class="btn btn-info">Login</a>
             <div class="form-inline my-2 my-lg-0">
-                <a href="{% url 'signup' %}"class="btn btn-warning">Signup</a>
+                <a href="{% url 'signup' %}"class="btn btn-info">Signup</a>
             <a href="">
             <img id="cart-icon" src="{% static 'images/cart.png' %}">
             </a>
-            {% with total_items=cart|length %}
-            {% if cart|length > 0 %}
-                <p id="cart-total">{{total_items}}</p>
-            {% endif %}
-            {% endwith %}
             </div>
         </div>
     </div>

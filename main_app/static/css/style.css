@@ -5,6 +5,16 @@ body{
 h1,h2,h3,h4,h5,h6{
 	color:hsl(0, 0%, 30%);
 }
+p{
+	color: grey;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.navbar-brand{
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	font-size: xx-large;
+	font-weight: bolder;
+}
 
 .container{
 	min-height: 100vh;
@@ -106,4 +116,53 @@ h1,h2,h3,h4,h5,h6{
 
 .row1{
 	min-height: 100vh;
+}
+
+#paypal-button-container{
+	margin-top: -700px;
+	margin-left: 850px;
+}
+
+.login-box{
+	width:280px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	color: white;
+}
+
+.login-box h1{
+	float:top;
+	font-size:40px;
+	border-bottom: 6px solid green;
+	margin-bottom: 50px;
+	padding: 20px 100px;
+}
+
+.textbox{
+	width:100%;
+	overflow:hidden;
+	font-size: 20px;
+	padding: 8px 0;
+	margin: 8px 0;
+	margin-left: 50px;
+	
+}
+
+.signup-box{
+	width:280px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	
+}
+
+.signup-box h2{
+	float:top;
+	font-size: 20px;
+	border-bottom: 6px solid green;
+	margin-bottom: 30px;
+	padding: 10px 100px;
 }

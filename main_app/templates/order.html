@@ -2,100 +2,85 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-
-<div id="all" style="margin-top: 4%; margin-bottom: 6%;">
-      <div id="content">
-        <div class="container">
-          <div class="row">
-
-            <div id="checkout" class="col-lg-9">
-              <div class="box border-bottom-0">
-
-                <a href="{% url 'home' %}"><button type="submit" class="genric-btn success-border circle mb-20 mt-3" style="margin-bottom: 8%; margin-left: 250px; margin-right: 14px;">Continue Shopping</button></a>
-                <form id="payform" action="." method="post" class="order-form">
-                  <div class="content">
-                    <div class="row">
-                      <div class="col-sm-6" style="margin-left: 26%; margin-right: 30%; margin-top: 2%;">
-                        <div class="form-group">
-                          <h2>Provide Your Information:</h2>
-                          {{ form|crispy }}
-                        </div>
-                      </div>
+  <div id="all" style="margin-top: 4%; margin-bottom: 6%;">
+    <div id="content">
+      <div class="container">
+        <div class="row">
+          <div id="checkout" class="col-lg-9">
+            <div class="box border-bottom-0">
+              <form id="payform" action="." method="post" class="order-form">
+                <div class="content">
+                  <div class="row">
+                    <div class="col-sm-6" style="margin-left: 26%; margin-right: 30%; margin-top: 2%;">
+                      <div class="form-group">
+                        <h2>Provide Your Information:</h2>
+                        {{ form|crispy }}
+                        <a href="{% url 'home' %}"><button type="submit" class="btn btn-outline-success btn-sm" style="margin-bottom: 8%">Continue Shopping</button></a>
                     </div>
                   </div>
-                  <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
-                    <div class="right-col">
-                      {% csrf_token %}
-                      <small>Paypal Options</small>
-                           </div> 
-                
+                </div>
               </div>
-            </div>
-            <div class="btn btn-outline btn-sm" id="paypal-button-container"></div>
-                      <script src="https://www.paypal.com/sdk/js?client-id=AWP4AChFP3h8_V0nZ4k9fcv9FDlKgK59j01m5qXVFz_rym-zIuBuiPpaBZ5M2QACxvbW9oG5G3K2qOjq&currency=USD&disable-funding=credit"></script>
-                      <script>
-                        let total = '{{ cart.get_total_price }}'
-                    // Render the PayPal button into #paypal-button-container
-                    paypal.Buttons({
-
+              <div class="box-footer d-flex flex-wrap align-items-center justify-content-between">
+                <div class="right-col">
+                  {% csrf_token %}
+                </div>  
+              </div>
+              </div>
+              <div class="btn btn-outline btn-sm" id="paypal-button-container">
+                <script src="https://www.paypal.com/sdk/js?client-id=AWP4AChFP3h8_V0nZ4k9fcv9FDlKgK59j01m5qXVFz_rym-zIuBuiPpaBZ5M2QACxvbW9oG5G3K2qOjq&currency=USD&disable-funding=credit"></script>
+                  <script>
+                    let total = '{{ cart.get_total_price }}'
+                      // Render the PayPal button into #paypal-button-container
+                      paypal.Buttons({
                         style: {
                           color: 'blue',
                           shape: 'pill',
                           label: 'pay',
                           height: 40,
                         },
-
                         // Set up the transaction
                         createOrder: function(data, actions) {
-                            return actions.order.create({
-                                purchase_units: [{
-                                    amount: {
-                                        value: parseFloat(total).toFixed(2)
-                                    }
-                                }]
-                            });
+                          return actions.order.create({
+                            purchase_units: [{
+                              amount: {
+                                value: parseFloat(total).toFixed(2)
+                              }
+                            }]
+                          });
                         },
-                
                         // Finalize the transaction
                         onApprove: function(data, actions) {
-                            return actions.order.capture().then(function(details) {
-                                // Show a success message to the buyer
-                                $('#payform').submit();
-                                alert('Transaction completed by ' + details.payer.name.given_name + '!');
-
-                            });
+                          return actions.order.capture().then(function(details) {
+                            // Show a success message to the buyer
+                            $('#payform').submit();
+                            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                          });
                         }
-                
-                
-                    }).render('#paypal-button-container');
+                      }).render('#paypal-button-container');
                   </script>
-                    <a id ="checkout" href="{% url 'checkout' %}"><button type="submit" class="genric-btn success circle mb-20 mt-5">Continue to Delivery</button></a>
-                    </div>
-                  </form>
-
-            <div class="col-lg-3">
-              <div id="order-summary" class="box mb-4 p-0">
-                <div class="box-header mt-0">
-                  <h3>Order summary</h3>
                 </div>
-                <p class="text-muted text-small">Shipping and additional costs are calculated based on the values you have entered.</p>
-                <div class="table-responsive">
-                  <table class="table">
-                    <tbody>
-                      <tr class="total">
-                        <td>Total</td>
-                        <th>${{ cart.get_total_price }}</th>
-                      </tr>
-                    </tbody>
-                  </table>
+                  </form>
+              </div>
+              <div class="col-lg-3">
+                <div id="order-summary" class="box mb-4 p-0">
+                  <div class="box-header mt-0">
+                    <h3>Order summary</h3>
+                  </div>
+                  <p class="text-muted text-small">Shipping and additional costs are calculated based on the values you have entered.</p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tbody>
+                        <tr class="total">
+                          <td>Total</td>
+                          <th>${{ cart.get_total_price }}</th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-          </div>
-        </div>
       </div>
     </div>
-
-
+  </div>
 {% endblock %}
