@@ -48,7 +48,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # production
 # SECRET_KEY = os.environ['SECRET_KEY']
-SECRET_KEY='mylittlesecret'
+SECRET_KEY="m+w7c8_fnnk!=_y50j+6=3lq88%eaq^yk^ur$#on0#3m22qqr6"
 # ALLOWED_HOSTS = [
 #     'yicha.herokuapp.com'
 # ]

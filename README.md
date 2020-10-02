@@ -51,8 +51,11 @@ This is an online ordering app developed in Django-3. Yi-Cha is a place for all 
 
 ## Website Pages
 
+![HOMEPAGE](./main_app/static/images/homepage.png) ![ABOUTPAGE](./main_app/static/images/userprofile.png)
+![CARTPAGE](./main_app/static/images/cartpage.png) ![PAYMENTPAGE](./main_app/static/images/payment.png)
 ## Wireframes
-
+![Wireframes](./main_app/static/images/wireframe-home.png)![Wireframes](./main_app/static/images/wireframe-cart.png)
+![Wireframes](./main_app/static/images/wireframe-checkout.png)
 ## ERD
 ![ERD](./main_app/static/images/ERDP4.png)
 
@@ -211,8 +214,7 @@ In profile.html:
 {% endfor %}
 ```
 
-### 4. Payment method: we decided to use PayPal - sandbox which for development purpose. When user confirmed order and click PAY in PayPal, it'll automatically send the order and render to checkout.html.
-
+#### 4. Payment method: we decided to use [PayPal](https://developer.paypal.com/docs/business/javascript-sdk/javascript-sdk-reference/#buttons), to complete the transaction, and [sandbox account](https://developer.paypal.com/docs/api-basics/sandbox/accounts/#create-and-manage-sandbox-accounts), for developers to create personal(client) and business(employer) accounts to test the transaction. When user confirmed order and click PAY in PayPal, it'll automatically send the order and render to checkout.html.
 In order.html:
 ```html
 <div class="btn btn-outline btn-sm" id="paypal-button-container">
@@ -267,7 +269,17 @@ def profile(request, username):
     return render(request, 'profile.html', {'user': user, 'username': username, 'order': order, 'cart': cart, 'user_profile': user_profile})
 
 ```
-
+```python
+def product_details(request, product_id):
+  # Calls get() on a given model manager
+    product = Product.objects.get(id=product_id)
+  # for icon cart length
+    cart = Cart(request)
+    for item in cart:
+      item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'], 'update': True})
+  
+    return render(request, 'product.html', {'product': product, 'cart': cart})
+```
 2. CREATE views.py : using class(CreateView) to let users able to create their own info and render in profile page
 ```python
 class ProfileCreate(CreateView):
