@@ -1,10 +1,12 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<h1>{{ username }}'s Profile Page</h1>
 
-
-<dl class="row">
+<div class="jumbotron">
+  <h1 class="display-4" style="text-align: center;">Hello, {{user_profile.0.first_name }}!</h1>
+  <p class="lead">Let us serve you better! Tea Lovers!</p>
+  <hr class="my-4">
+  <dl class="row">
     <dt class="col-sm-3">First Name: </dt>
     <dd class="col-sm-9">{{ user_profile.0.first_name }}</dd>
     
@@ -27,25 +29,24 @@
 </br>
 <div class="box-footer d-flex justify-content-between align-items-center">
     {% if user_profile|length > 0 %}
-        <div class="left-col"><a href="{% url 'profile_update' username user.id %}" class="btn btn-secondary">Update Profile</a></div>
+        <div class="right-col"><a href="{% url 'profile_update' username user.id %}" class="btn btn-info">Update Details</a></div>
   
     {% else %}
         <div class="left-col"><a href="{% url 'profile_create' username user.id %}" class="btn btn-danger">Create Profile</a></div>
     {% endif %}
 </div>
 </dl>
+</div>
+
 </hr>
-<h2>Order History</h2>
-
-
-<div class="row-cols-md-3">
-    <div class="col s12">  
-      <div class="card h-100">
-        {% for o in order %}
-        <div class="card-body">
-        <blockquote>
-          <h5 class="card-title">Order ID: {{ o.id }}</h5>
-          {% if o.paid %}
+<h2 style="text-align: center; color: steelblue;">Order history </h2>
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+      {% for o in order %}
+      <div class="card-body" style="text-align: center;">
+        <h5 class="card-title">Order ID: {{ o.id }}</h5>
+        {% if o.paid %}
             <p>paid on: {{o.ordered_date}}</p>
           {% endif %}
             <p>shipping to: {{ o.shipping_address }}</p>
@@ -56,14 +57,9 @@
         </div>
         <a class="btn btn-primary" href="{% url 'order_delete' username o.id %}">Delete history</a>
         {% endfor %}
-    
+      </div>
     </div>
-
-    </div>
-</div>
-
-</br>
-</br>
+  </div>
 
 
 
