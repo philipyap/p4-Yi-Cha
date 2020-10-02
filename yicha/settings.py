@@ -18,8 +18,8 @@ import psycopg2
 import dj_database_url
 
 
-# DATABASE_URL =  os.environ['DATABASE_URL']
-# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+DATABASE_URL =  os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # If the host name starts with 'live', DJANGO_HOST = "production"
 if socket.gethostname().startswith('live'):
@@ -47,11 +47,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # production
-# SECRET_KEY = os.environ['SECRET_KEY']
-SECRET_KEY="m+w7c8_fnnk!=_y50j+6=3lq88%eaq^yk^ur$#on0#3m22qqr6"
-# ALLOWED_HOSTS = [
-#     'yicha.herokuapp.com'
-# ]
+SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY="m+w7c8_fnnk!=_y50j+6=3lq88%eaq^yk^ur$#on0#3m22qqr6"
+ALLOWED_HOSTS = [
+    'yicha.herokuapp.com'
+]
 
 
 # Application definition
@@ -113,7 +113,7 @@ DATABASES = {
     }
 }
 # production
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
