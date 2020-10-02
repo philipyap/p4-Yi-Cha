@@ -1,4 +1,9 @@
 # Yi-Cha e-commerce app
+
+## Team Member:
+- Irene Yap (Backend)
+- Philip Yap (Frontend)
+
 ## Introduction
 This is an online ordering app developed in Django-3. Yi-Cha is a place for all tea lovers ! Yi-Cha means Japanese tea ceremony and it's ART of tea! Beyond just serving and receiving tea, one of the main purposes of the tea ceremony is for the guests to enjoy the hospitality of the host in an atmosphere distinct from the fast pace of everyday life. MAKE SURE you sign-up and log-in to shop around our app! Feel free to visit our site : [Welcome to Yi-Cha](https://yicha.herokuapp.com/)
 
